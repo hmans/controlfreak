@@ -1,3 +1,4 @@
+export * from "./Controller"
 export * from "./Control"
 export * from "./devices"
 
