@@ -1,9 +1,7 @@
 import { Vector } from "."
 import { Controller } from "./Controller"
 
-export type ControlStep<T = any> = (
-  control: Control<T>
-) => void
+export type ControlStep<T = any> = (control: Control<T>) => void
 
 export abstract class Control<T = any> {
   abstract value: T
@@ -38,5 +36,13 @@ export class VectorControl extends Control<Vector> {
   reset() {
     this.value.x = 0
     this.value.y = 0
+  }
+}
+
+export class BooleanControl extends Control<boolean> {
+  value: boolean = false
+
+  reset() {
+    this.value = false
   }
 }

@@ -1,9 +1,7 @@
-import { VectorControl } from "."
+import { BooleanControl, VectorControl } from "."
 import { KeyboardDevice, GamepadDevice } from "./devices"
 
-export const normalizeVector = ({
-  value
-}: VectorControl) => {
+export const normalizeVector = ({ value }: VectorControl) => {
   const length = Math.sqrt(value.x ** 2 + value.y ** 2) || 1
   value.x /= length
   value.y /= length
@@ -31,3 +29,9 @@ export const gamepadAxisVector =
       }
     }
   }
+
+export const whenKeyPressed = (key: string) => (control: BooleanControl) => {
+  if (control.controller.activeDevice instanceof KeyboardDevice) {
+    control.value = !!control.controller.activeDevice.isPressed(key)
+  }
+}

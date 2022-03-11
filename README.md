@@ -31,6 +31,8 @@ controller
   .addStep(gamepadAxisVector(0, 1))
   .addStep(normalizeVector)
 
+controller.addControl("fire", BooleanControl).addStep(whenKeyPressed("f"))
+
 controller
   .addControl("aim", VectorControl)
   .addStep(compositeKeyboardVector("up", "down", "left", "right"))
