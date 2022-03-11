@@ -33,9 +33,7 @@ controller
 
 controller
   .addControl("aim", VectorControl)
-  .addStep(
-    compositeKeyboardVector("up", "down", "left", "right")
-  )
+  .addStep(compositeKeyboardVector("up", "down", "left", "right"))
   .addStep(gamepadAxisVector(2, 3))
   .addStep(normalizeVector)
 ```
