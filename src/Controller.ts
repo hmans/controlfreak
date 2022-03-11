@@ -27,4 +27,17 @@ export class Controller {
     for (const control of Object.values(this.controls))
       control.update()
   }
+
+  addControl(
+    name: string,
+    klass: { new (...args: any[]): Control }
+  ) {
+    const instance = new klass(this)
+    this.controls[name] = instance
+    return instance
+  }
+
+  removeControl(name: string) {
+    delete this.controls[name]
+  }
 }
