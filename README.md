@@ -12,67 +12,40 @@ Add it to your project:
 yarn add @hmans/controlfreak
 ```
 
-Write a module that composes your game controller, eg `controller.ts`:
+Write a module that composes and exports your game controller, eg `controller.ts`:
 
 ```ts
 import {
-  Device,
-  GamepadDevice,
-  KeyboardDevice,
+  compositeKeyboardVector,
+  Controller,
+  gamepadAxisVector,
+  normalizeVector,
   VectorControl
 } from "@hmans/controlfreak"
 
-export const devices = [
-  new KeyboardDevice().start(),
-  new GamepadDevice().start()
-]
+export const controller = new Controller()
 
-let activeDevice: Device
+controller
+  .addControl("move", VectorControl)
+  .addStep(compositeKeyboardVector("w", "s", "a", "d"))
+  .addStep(gamepadAxisVector(0, 1))
+  .addStep(normalizeVector)
 
-for (const device of devices) {
-  device.onActivity.on(() => (activeDevice = device))
-}
-
-export const controls = {
-  stick: new VectorControl()
-    .addStep(({ value }) => {
-      if (activeDevice instanceof KeyboardDevice) {
-        const { isPressed } = activeDevice
-        value.x = isPressed("d") - isPressed("a")
-        value.y = isPressed("w") - isPressed("s")
-      }
-    })
-    .addStep(({ value }) => {
-      if (activeDevice instanceof GamepadDevice) {
-        const { device } = activeDevice
-
-        if (device) {
-          value.x = device.axes[0]
-          value.y = -device.axes[1]
-        }
-      }
-    })
-    .addStep(({ value }) => {
-      const length =
-        Math.sqrt(value.x ** 2 + value.y ** 2) || 1
-      value.x /= length
-      value.y /= length
-    })
-}
-
-export const update = () => {
-  for (const device of devices) device.update()
-  for (const control of Object.values(controls))
-    control.update()
-}
+controller
+  .addControl("aim", VectorControl)
+  .addStep(
+    compositeKeyboardVector("up", "down", "left", "right")
+  )
+  .addStep(gamepadAxisVector(2, 3))
+  .addStep(normalizeVector)
 ```
 
 Then use it in your game loop:
 
 ```ts
-import { controls, update } from "./controller"
+import { controller } from "./controller"
 
 /* Very likely within some sort of loop...: */
-update()
-console.log(controls.stick.value)
+controller.update()
+console.log(controller.controls.move.value)
 ```
