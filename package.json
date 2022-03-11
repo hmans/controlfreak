@@ -1,5 +1,6 @@
 {
-  "name": "controlfreak",
+  "name": "@hmans/controlfreak",
+  "private": false,
   "author": {
     "name": "Hendrik Mans",
     "email": "hendrik@mans.de",
