@@ -35,3 +35,11 @@ export const whenKeyPressed = (key: string) => (control: BooleanControl) => {
     control.value = !!control.controller.activeDevice.isPressed(key)
   }
 }
+
+export const whenButtonPressed =
+  (button: number) => (control: BooleanControl) => {
+    if (control.controller.activeDevice instanceof GamepadDevice) {
+      control.value =
+        control.controller.activeDevice.device!.buttons[button].pressed
+    }
+  }

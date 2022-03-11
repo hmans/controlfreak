@@ -31,7 +31,10 @@ controller
   .addStep(gamepadAxisVector(0, 1))
   .addStep(normalizeVector)
 
-controller.addControl("fire", BooleanControl).addStep(whenKeyPressed("f"))
+controller
+  .addControl("fire", BooleanControl)
+  .addStep(whenKeyPressed(" "))
+  .addStep(whenButtonPressed(0))
 
 controller
   .addControl("aim", VectorControl)
