@@ -1,4 +1,5 @@
 import { Vector } from "."
+import { Controller } from "./Controller"
 
 export type ControlStep<T = any> = (
   control: Control<T>
@@ -10,6 +11,8 @@ export abstract class Control<T = any> {
   steps = new Array<ControlStep<T>>()
 
   abstract reset(): void
+
+  constructor(public controller: Controller) {}
 
   addStep(step: ControlStep<T>) {
     this.steps.push(step)
