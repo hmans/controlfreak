@@ -1,6 +1,6 @@
-[![Version](https://img.shields.io/npm/v/controlfreak)](https://www.npmjs.com/package/controlfreak)
-[![Downloads](https://img.shields.io/npm/dt/controlfreak.svg)](https://www.npmjs.com/package/controlfreak)
-[![Bundle Size](https://img.shields.io/bundlephobia/min/controlfreak?label=bundle%20size)](https://bundlephobia.com/result?p=controlfreak)
+[![Version](https://img.shields.io/npm/v/@hmans/controlfreak)](https://www.npmjs.com/package/@hmans/controlfreak)
+[![Downloads](https://img.shields.io/npm/dt/@hmans/controlfreak.svg)](https://www.npmjs.com/package/@hmans/controlfreak)
+[![Bundle Size](https://img.shields.io/bundlephobia/min/@hmans/controlfreak?label=bundle%20size)](https://bundlephobia.com/result?p=@hmans/controlfreak)
 
 # CONTROL FREAK
 
