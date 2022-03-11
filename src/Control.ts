@@ -1,8 +1,10 @@
 import { Vector } from "."
 
-export type ControlStep<T> = (control: Control<T>) => void
+export type ControlStep<T = any> = (
+  control: Control<T>
+) => void
 
-export abstract class Control<T> {
+export abstract class Control<T = any> {
   abstract value: T
 
   steps = new Array<ControlStep<T>>()
