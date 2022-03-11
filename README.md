@@ -6,7 +6,13 @@
 
 ## tl;dr
 
-Write a module that composes your game controller:
+Add it to your project:
+
+```sh
+yarn add @hmans/controlfreak
+```
+
+Write a module that composes your game controller, eg `controller.ts`:
 
 ```ts
 import {
@@ -61,7 +67,7 @@ export const update = () => {
 }
 ```
 
-Elsewhere:
+Then use it in your game loop:
 
 ```ts
 import { controls, update } from "./controller"
