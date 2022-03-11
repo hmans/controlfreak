@@ -29,7 +29,7 @@ controller
   .addControl("move", VectorControl)
   .addStep(compositeKeyboardVector("w", "s", "a", "d"))
   .addStep(gamepadAxisVector(0, 1))
-  .addStep(normalizeVector)
+  .addStep(clampVector(1))
 
 controller
   .addControl("fire", BooleanControl)

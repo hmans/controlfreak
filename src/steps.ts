@@ -7,6 +7,17 @@ export const normalizeVector = ({ value }: VectorControl) => {
   value.y /= length
 }
 
+export const clampVector =
+  (maxLength = 1) =>
+  ({ value }: VectorControl) => {
+    const length = Math.sqrt(value.x ** 2 + value.y ** 2) || 1
+    if (length > maxLength) {
+      const factor = maxLength / length
+      value.x *= factor
+      value.y *= factor
+    }
+  }
+
 export const compositeKeyboardVector =
   (up: string, down: string, left: string, right: string) =>
   ({ value, controller }: VectorControl) => {
