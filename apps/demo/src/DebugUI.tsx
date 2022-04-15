@@ -39,6 +39,14 @@ export const DebugUI = () => {
             <td>{controller.controls.move.value.y.toFixed(2)}</td>
           </tr>
           <tr>
+            <th>Aim X:</th>
+            <td>{controller.controls.aim.value.x.toFixed(2)}</td>
+          </tr>
+          <tr>
+            <th>Aim Y:</th>
+            <td>{controller.controls.aim.value.y.toFixed(2)}</td>
+          </tr>
+          <tr>
             <th>Fire:</th>
             <td>{controller.controls.fire.value ? "true" : "false"}</td>
           </tr>
