@@ -1,5 +1,5 @@
 import { Canvas, useFrame } from "@react-three/fiber"
-import { useRef } from "react"
+import { useEffect, useRef } from "react"
 import { Mesh } from "three"
 import { controller } from "./controller"
 import { DebugUI } from "./DebugUI"
@@ -32,11 +32,18 @@ const Game = () => (
   </Canvas>
 )
 
-const App = () => (
-  <>
-    <DebugUI />
-    <Game />
-  </>
-)
+const App = () => {
+  useEffect(() => {
+    controller.start()
+    return () => controller.stop()
+  })
+
+  return (
+    <>
+      <DebugUI />
+      <Game />
+    </>
+  )
+}
 
 export default App

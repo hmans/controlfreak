@@ -30,5 +30,3 @@ controller
   )
   .addStep(gamepad.axisVector(2, 3))
   .addStep(processors.normalizeVector)
-
-controller.start()
