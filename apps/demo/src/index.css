@@ -6,8 +6,12 @@ body {
   padding: 0;
   overflow: hidden;
   user-select: none;
-  background-color: #000;
+  background-color: #444;
   color: #ccc;
+
+  font: 22px/1.3 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+    "Segoe UI Symbol";
 }
 
 body {

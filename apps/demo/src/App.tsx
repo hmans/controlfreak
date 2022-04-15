@@ -2,6 +2,7 @@ import { Canvas, useFrame } from "@react-three/fiber"
 import { useRef } from "react"
 import { Mesh } from "three"
 import { controller } from "./controller"
+import { DebugUI } from "./DebugUI"
 
 const Thingy = ({ speed = 2 }) => {
   const ref = useRef<Mesh>(null!)
@@ -22,15 +23,20 @@ const Thingy = ({ speed = 2 }) => {
   )
 }
 
-function App() {
-  return (
-    <Canvas>
-      <ambientLight />
-      <directionalLight position={[10, 10, 10]} />
+const Game = () => (
+  <Canvas>
+    <ambientLight />
+    <directionalLight position={[10, 10, 10]} />
 
-      <Thingy />
-    </Canvas>
-  )
-}
+    <Thingy />
+  </Canvas>
+)
+
+const App = () => (
+  <>
+    <DebugUI />
+    <Game />
+  </>
+)
 
 export default App
