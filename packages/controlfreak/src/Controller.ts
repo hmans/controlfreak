@@ -1,5 +1,6 @@
 import { Control } from "."
 import { BaseDevice } from "./devices"
+import { Signal } from "./lib/signal"
 
 export class Controller {
   /** A list of devices driving this controller. */
@@ -11,9 +12,15 @@ export class Controller {
   /** The controls defined by this controller.  */
   controls: Record<string, Control> = {}
 
+  onDeviceChange = new Signal<BaseDevice>()
+
   start() {
     for (const device of this.devices) {
-      device.onActivity.on(() => (this.activeDevice = device))
+      device.onActivity.on(() => {
+        this.activeDevice = device
+        this.onDeviceChange.emit(device)
+      })
+
       device.start()
     }
   }
