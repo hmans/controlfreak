@@ -34,20 +34,22 @@ export class KeyboardDevice extends Device {
     this.keyState[event.code] = false
   }
 
-  whenKeyPressed = (key: KeyCode | KeyCode[]) => (control: BooleanControl) => {
-    if (control.controller.activeDevice === this) {
-      control.value = !!this.isPressed(key)
+  static whenKeyPressed = (key: KeyCode | KeyCode[]) => (
+    control: BooleanControl
+  ) => {
+    if (control.controller.activeDevice instanceof KeyboardDevice) {
+      control.value = !!control.controller.activeDevice.isPressed(key)
     }
   }
 
-  compositeVector = (
+  static compositeVector = (
     up: KeyCode | KeyCode[],
     down: KeyCode | KeyCode[],
     left: KeyCode | KeyCode[],
     right: KeyCode | KeyCode[]
   ) => ({ value, controller }: VectorControl) => {
-    if (controller.activeDevice === this) {
-      const { isPressed } = this
+    if (controller.activeDevice instanceof KeyboardDevice) {
+      const { isPressed } = controller.activeDevice
 
       value.x = isPressed(right) - isPressed(left)
       value.y = isPressed(up) - isPressed(down)
