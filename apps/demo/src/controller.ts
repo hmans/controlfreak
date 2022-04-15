@@ -4,13 +4,21 @@ import {
   compositeKeyboardVector,
   Controller,
   gamepadAxisVector,
+  GamepadDevice,
+  KeyboardDevice,
   normalizeVector,
   VectorControl,
   whenButtonPressed,
   whenKeyPressed
 } from "@hmans/controlfreak"
 
+const keyboard = new KeyboardDevice()
+const gamepad = new GamepadDevice()
+
 export const controller = new Controller()
+
+controller.addDevice(keyboard)
+controller.addDevice(gamepad)
 
 controller
   .addControl("move", VectorControl)
@@ -20,7 +28,7 @@ controller
 
 controller
   .addControl("fire", BooleanControl)
-  .addStep(whenKeyPressed("Space"))
+  .addStep(whenKeyPressed(["Space", "Enter"]))
   .addStep(whenButtonPressed(0))
 
 controller
@@ -30,3 +38,5 @@ controller
   )
   .addStep(gamepadAxisVector(2, 3))
   .addStep(normalizeVector)
+
+controller.start()
