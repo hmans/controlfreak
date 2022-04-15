@@ -1,45 +1,50 @@
 import { BooleanControl, VectorControl } from "."
 import { KeyboardDevice, GamepadDevice } from "./devices"
+import { magnitude } from "./lib/vectorish"
 
 export const normalizeVector = ({ value }: VectorControl) => {
-  const length = Math.sqrt(value.x ** 2 + value.y ** 2) || 1
+  const length = magnitude(value) || 1
+
   value.x /= length
   value.y /= length
 }
 
-export const clampVector =
-  (maxLength = 1) =>
-  ({ value }: VectorControl) => {
-    const length = Math.sqrt(value.x ** 2 + value.y ** 2) || 1
-    if (length > maxLength) {
-      const factor = maxLength / length
-      value.x *= factor
-      value.y *= factor
+export const clampVector = (maxLength = 1) => ({ value }: VectorControl) => {
+  const length = magnitude(value) || 1
+
+  if (length > maxLength) {
+    const factor = maxLength / length
+    value.x *= factor
+    value.y *= factor
+  }
+}
+
+export const compositeKeyboardVector = (
+  up: string,
+  down: string,
+  left: string,
+  right: string
+) => ({ value, controller }: VectorControl) => {
+  if (controller.activeDevice instanceof KeyboardDevice) {
+    const { isPressed } = controller.activeDevice
+    value.x = isPressed(right) - isPressed(left)
+    value.y = isPressed(up) - isPressed(down)
+  }
+}
+
+export const gamepadAxisVector = (horizontalAxis = 0, verticalAxis = 1) => ({
+  value,
+  controller
+}: VectorControl) => {
+  if (controller.activeDevice instanceof GamepadDevice) {
+    const { device } = controller.activeDevice
+
+    if (device) {
+      value.x = device.axes[horizontalAxis]
+      value.y = -device.axes[verticalAxis]
     }
   }
-
-export const compositeKeyboardVector =
-  (up: string, down: string, left: string, right: string) =>
-  ({ value, controller }: VectorControl) => {
-    if (controller.activeDevice instanceof KeyboardDevice) {
-      const { isPressed } = controller.activeDevice
-      value.x = isPressed(right) - isPressed(left)
-      value.y = isPressed(up) - isPressed(down)
-    }
-  }
-
-export const gamepadAxisVector =
-  (horizontalAxis = 0, verticalAxis = 1) =>
-  ({ value, controller }: VectorControl) => {
-    if (controller.activeDevice instanceof GamepadDevice) {
-      const { device } = controller.activeDevice
-
-      if (device) {
-        value.x = device.axes[horizontalAxis]
-        value.y = -device.axes[verticalAxis]
-      }
-    }
-  }
+}
 
 export const whenKeyPressed = (key: string) => (control: BooleanControl) => {
   if (control.controller.activeDevice instanceof KeyboardDevice) {
@@ -47,10 +52,12 @@ export const whenKeyPressed = (key: string) => (control: BooleanControl) => {
   }
 }
 
-export const whenButtonPressed =
-  (button: number) => (control: BooleanControl) => {
-    if (control.controller.activeDevice instanceof GamepadDevice) {
-      control.value =
-        control.controller.activeDevice.device!.buttons[button].pressed
-    }
+export const whenButtonPressed = (button: number) => (
+  control: BooleanControl
+) => {
+  if (control.controller.activeDevice instanceof GamepadDevice) {
+    control.value = control.controller.activeDevice.device!.buttons[
+      button
+    ].pressed
   }
+}
