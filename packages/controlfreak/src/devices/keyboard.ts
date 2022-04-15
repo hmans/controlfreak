@@ -1,5 +1,5 @@
 import { BooleanControl, VectorControl } from "../Control"
-import { Device as BaseDevice } from "./Device"
+import { BaseDevice } from "./BaseDevice"
 
 export type KeyCode = string
 

@@ -1,6 +1,6 @@
 import { Signal } from "../lib/signal"
 
-export abstract class Device {
+export abstract class BaseDevice {
   public onActivity = new Signal()
 
   abstract start(): this

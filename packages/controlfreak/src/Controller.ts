@@ -1,12 +1,12 @@
 import { Control } from "."
-import { Device } from "./devices"
+import { BaseDevice } from "./devices"
 
 export class Controller {
   /** A list of devices driving this controller. */
-  devices = new Array<Device>()
+  devices = new Array<BaseDevice>()
 
   /** The currently active device. */
-  activeDevice: Device = null!
+  activeDevice: BaseDevice = null!
 
   /** The controls defined by this controller.  */
   controls: Record<string, Control> = {}
@@ -40,11 +40,11 @@ export class Controller {
     delete this.controls[name]
   }
 
-  addDevice(device: Device) {
+  addDevice(device: BaseDevice) {
     this.devices.push(device)
   }
 
-  removeDevice(device: Device) {
+  removeDevice(device: BaseDevice) {
     const pos = this.devices.indexOf(device, 0)
     if (pos >= 0) this.devices.splice(pos, 1)
   }
