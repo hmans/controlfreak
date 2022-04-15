@@ -3,6 +3,7 @@ import {
   Controller,
   gamepad,
   keyboard,
+  touch,
   VectorControl,
   processors
 } from "@hmans/controlfreak"
@@ -11,6 +12,7 @@ export const controller = new Controller()
 
 controller.addDevice(new keyboard.Device())
 controller.addDevice(new gamepad.Device())
+controller.addDevice(new touch.Device())
 
 controller
   .addControl("move", VectorControl)
@@ -30,3 +32,5 @@ controller
   )
   .addStep(gamepad.axisVector(2, 3))
   .addStep(processors.normalizeVector)
+
+controller.onDeviceChange.on((d) => console.log("new device:", d))

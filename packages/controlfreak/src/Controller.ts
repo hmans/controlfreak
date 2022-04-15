@@ -17,6 +17,8 @@ export class Controller {
   start() {
     for (const device of this.devices) {
       device.onActivity.on(() => {
+        if (this.activeDevice === device) return
+
         this.activeDevice = device
         this.onDeviceChange.emit(device)
       })
