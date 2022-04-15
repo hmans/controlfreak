@@ -1,9 +1,9 @@
 import { BooleanControl, VectorControl } from "../Control"
-import { Device } from "./Device"
+import { Device as BaseDevice } from "./Device"
 
 export type KeyCode = string
 
-export class KeyboardDevice extends Device {
+export class Device extends BaseDevice {
   private keyState: Record<KeyCode, boolean> = {}
 
   start = () => {
@@ -33,26 +33,26 @@ export class KeyboardDevice extends Device {
   handleKeyUp = (event: KeyboardEvent) => {
     this.keyState[event.code] = false
   }
+}
 
-  static whenKeyPressed = (key: KeyCode | KeyCode[]) => (
-    control: BooleanControl
-  ) => {
-    if (control.controller.activeDevice instanceof KeyboardDevice) {
-      control.value = !!control.controller.activeDevice.isPressed(key)
-    }
+export const whenKeyPressed = (key: KeyCode | KeyCode[]) => (
+  control: BooleanControl
+) => {
+  if (control.controller.activeDevice instanceof Device) {
+    control.value = !!control.controller.activeDevice.isPressed(key)
   }
+}
 
-  static compositeVector = (
-    up: KeyCode | KeyCode[],
-    down: KeyCode | KeyCode[],
-    left: KeyCode | KeyCode[],
-    right: KeyCode | KeyCode[]
-  ) => ({ value, controller }: VectorControl) => {
-    if (controller.activeDevice instanceof KeyboardDevice) {
-      const { isPressed } = controller.activeDevice
+export const compositeVector = (
+  up: KeyCode | KeyCode[],
+  down: KeyCode | KeyCode[],
+  left: KeyCode | KeyCode[],
+  right: KeyCode | KeyCode[]
+) => ({ value, controller }: VectorControl) => {
+  if (controller.activeDevice instanceof Device) {
+    const { isPressed } = controller.activeDevice
 
-      value.x = isPressed(right) - isPressed(left)
-      value.y = isPressed(up) - isPressed(down)
-    }
+    value.x = isPressed(right) - isPressed(left)
+    value.y = isPressed(up) - isPressed(down)
   }
 }

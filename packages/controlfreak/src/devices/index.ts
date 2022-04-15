@@ -1,3 +1,3 @@
 export * from "./Device"
-export * from "./KeyboardDevice"
-export * from "./GamepadDevice"
+export * as keyboard from "./keyboard"
+export * as gamepad from "./gamepad"

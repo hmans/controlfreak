@@ -1,39 +1,34 @@
 import {
   BooleanControl,
   Controller,
-  GamepadDevice,
-  KeyboardDevice,
+  gamepad,
+  keyboard,
   VectorControl,
-  Processors
+  processors
 } from "@hmans/controlfreak"
 
 export const controller = new Controller()
 
-controller.addDevice(new KeyboardDevice())
-controller.addDevice(new GamepadDevice())
+controller.addDevice(new keyboard.Device())
+controller.addDevice(new gamepad.Device())
 
 controller
   .addControl("move", VectorControl)
-  .addStep(KeyboardDevice.compositeVector("KeyW", "KeyS", "KeyA", "KeyD"))
-  .addStep(GamepadDevice.axisVector(0, 1))
-  .addStep(Processors.clampVector(1))
+  .addStep(keyboard.compositeVector("KeyW", "KeyS", "KeyA", "KeyD"))
+  .addStep(gamepad.axisVector(0, 1))
+  .addStep(processors.clampVector(1))
 
 controller
   .addControl("fire", BooleanControl)
-  .addStep(KeyboardDevice.whenKeyPressed(["Space", "Enter"]))
-  .addStep(GamepadDevice.whenButtonPressed(0))
+  .addStep(keyboard.whenKeyPressed(["Space", "Enter"]))
+  .addStep(gamepad.whenButtonPressed(0))
 
 controller
   .addControl("aim", VectorControl)
   .addStep(
-    KeyboardDevice.compositeVector(
-      "ArrowUp",
-      "ArrowDown",
-      "ArrowLeft",
-      "ArrowRight"
-    )
+    keyboard.compositeVector("ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight")
   )
-  .addStep(GamepadDevice.axisVector(2, 3))
-  .addStep(Processors.normalizeVector)
+  .addStep(gamepad.axisVector(2, 3))
+  .addStep(processors.normalizeVector)
 
 controller.start()

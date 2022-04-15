@@ -1,7 +1,7 @@
 import { BooleanControl, VectorControl } from "../Control"
-import { Device } from "./Device"
+import { Device as BaseDevice } from "./Device"
 
-export class GamepadDevice extends Device {
+export class Device extends BaseDevice {
   deviceIndex?: number
   device?: Gamepad
 
@@ -46,25 +46,27 @@ export class GamepadDevice extends Device {
       this.onActivity.emit()
     }
   }
+}
 
-  static whenButtonPressed = (button: number) => (control: BooleanControl) => {
-    if (control.controller.activeDevice instanceof GamepadDevice) {
-      const gamepad = control.controller.activeDevice
-      control.value = gamepad.device!.buttons[button].pressed
-    }
+export const whenButtonPressed = (button: number) => (
+  control: BooleanControl
+) => {
+  if (control.controller.activeDevice instanceof Device) {
+    const gamepad = control.controller.activeDevice
+    control.value = gamepad.device!.buttons[button].pressed
   }
+}
 
-  static axisVector = (horizontalAxis = 0, verticalAxis = 1) => ({
-    value,
-    controller
-  }: VectorControl) => {
-    if (controller.activeDevice instanceof GamepadDevice) {
-      const { device } = controller.activeDevice
+export const axisVector = (horizontalAxis = 0, verticalAxis = 1) => ({
+  value,
+  controller
+}: VectorControl) => {
+  if (controller.activeDevice instanceof Device) {
+    const { device } = controller.activeDevice
 
-      if (device) {
-        value.x = device.axes[horizontalAxis]
-        value.y = -device.axes[verticalAxis]
-      }
+    if (device) {
+      value.x = device.axes[horizontalAxis]
+      value.y = -device.axes[verticalAxis]
     }
   }
 }
