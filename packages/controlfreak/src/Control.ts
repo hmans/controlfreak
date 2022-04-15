@@ -1,5 +1,5 @@
-import { Vector } from "."
 import { Controller } from "./Controller"
+import { IVector2 } from "./lib/vectorish"
 
 export type ControlStep<T = any> = (control: Control<T>) => void
 
@@ -30,8 +30,8 @@ export abstract class Control<T = any> {
   }
 }
 
-export class VectorControl extends Control<Vector> {
-  value: Vector = { x: 0, y: 0 }
+export class VectorControl extends Control<IVector2> {
+  value: IVector2 = { x: 0, y: 0 }
 
   reset() {
     this.value.x = 0
