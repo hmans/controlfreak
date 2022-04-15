@@ -1,3 +1,4 @@
+import { BooleanControl, VectorControl } from "../Control"
 import { Device } from "./Device"
 
 export type KeyCode = string
@@ -31,5 +32,25 @@ export class KeyboardDevice extends Device {
 
   handleKeyUp = (event: KeyboardEvent) => {
     this.keyState[event.code] = false
+  }
+
+  whenKeyPressed = (key: KeyCode | KeyCode[]) => (control: BooleanControl) => {
+    if (control.controller.activeDevice === this) {
+      control.value = !!this.isPressed(key)
+    }
+  }
+
+  compositeVector = (
+    up: KeyCode | KeyCode[],
+    down: KeyCode | KeyCode[],
+    left: KeyCode | KeyCode[],
+    right: KeyCode | KeyCode[]
+  ) => ({ value, controller }: VectorControl) => {
+    if (controller.activeDevice === this) {
+      const { isPressed } = this
+
+      value.x = isPressed(right) - isPressed(left)
+      value.y = isPressed(up) - isPressed(down)
+    }
   }
 }
