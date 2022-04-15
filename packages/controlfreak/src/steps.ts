@@ -15,14 +15,17 @@ export const clampVector = (maxLength = 1) => ({ value }: VectorControl) => {
   }
 }
 
+type KeyCode = string
+
 export const compositeKeyboardVector = (
-  up: string,
-  down: string,
-  left: string,
-  right: string
+  up: KeyCode | KeyCode[],
+  down: KeyCode | KeyCode[],
+  left: KeyCode | KeyCode[],
+  right: KeyCode | KeyCode[]
 ) => ({ value, controller }: VectorControl) => {
   if (controller.activeDevice instanceof KeyboardDevice) {
     const { isPressed } = controller.activeDevice
+
     value.x = isPressed(right) - isPressed(left)
     value.y = isPressed(up) - isPressed(down)
   }
