@@ -1,3 +1,4 @@
+[![Tests](https://github.com/hmans/controlfreak/actions/workflows/tests.yml/badge.svg)](https://github.com/hmans/controlfreak/actions/workflows/tests.yml)
 [![Version](https://img.shields.io/npm/v/@hmans/controlfreak)](https://www.npmjs.com/package/@hmans/controlfreak)
 [![Downloads](https://img.shields.io/npm/dt/@hmans/controlfreak.svg)](https://www.npmjs.com/package/@hmans/controlfreak)
 [![Bundle Size](https://img.shields.io/bundlephobia/min/@hmans/controlfreak?label=bundle%20size)](https://bundlephobia.com/result?p=@hmans/controlfreak)
