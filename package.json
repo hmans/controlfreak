@@ -10,7 +10,7 @@
   "scripts": {
     "postinstall": "preconstruct dev && manypkg check",
     "dev": "preconstruct dev",
-    "demo": "cd apps/demo && yarn dev",
+    "demo": "yarn preconstruct dev && cd apps/demo && yarn dev",
     "build": "preconstruct build",
     "test": "jest",
     "ci": "preconstruct validate && manypkg check && yarn build && yarn test",
