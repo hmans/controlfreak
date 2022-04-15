@@ -30,6 +30,7 @@
     "printWidth": 80
   },
   "dependencies": {
+    "@babel/core": "^7.17.9",
     "@changesets/cli": "^2.22.0",
     "@manypkg/cli": "^0.19.1",
     "@preconstruct/cli": "^2.1.5"
