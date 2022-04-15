@@ -17,14 +17,14 @@ export class KeyboardDevice extends Device {
 
   update() {}
 
-  isPressed = (key: string) => (this.keyState[key] ? 1 : 0)
+  isPressed = (code: string) => (this.keyState[code] ? 1 : 0)
 
   handleKeyDown = (event: KeyboardEvent) => {
-    this.keyState[event.key] = true
+    this.keyState[event.code] = true
     this.onActivity.emit()
   }
 
   handleKeyUp = (event: KeyboardEvent) => {
-    this.keyState[event.key] = false
+    this.keyState[event.code] = false
   }
 }

@@ -14,17 +14,19 @@ export const controller = new Controller()
 
 controller
   .addControl("move", VectorControl)
-  .addStep(compositeKeyboardVector("w", "s", "a", "d"))
+  .addStep(compositeKeyboardVector("KeyW", "KeyS", "KeyA", "KeyD"))
   .addStep(gamepadAxisVector(0, 1))
   .addStep(clampVector(1))
 
 controller
   .addControl("fire", BooleanControl)
-  .addStep(whenKeyPressed(" "))
+  .addStep(whenKeyPressed("Space"))
   .addStep(whenButtonPressed(0))
 
 controller
   .addControl("aim", VectorControl)
-  .addStep(compositeKeyboardVector("up", "down", "left", "right"))
+  .addStep(
+    compositeKeyboardVector("ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight")
+  )
   .addStep(gamepadAxisVector(2, 3))
   .addStep(normalizeVector)
