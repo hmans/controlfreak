@@ -1,7 +1,9 @@
 import { Device } from "./Device"
 
+export type KeyCode = string
+
 export class KeyboardDevice extends Device {
-  private keyState: Record<string, boolean> = {}
+  private keyState: Record<KeyCode, boolean> = {}
 
   start = () => {
     window.addEventListener("keydown", this.handleKeyDown)
@@ -17,7 +19,10 @@ export class KeyboardDevice extends Device {
 
   update() {}
 
-  isPressed = (code: string) => (this.keyState[code] ? 1 : 0)
+  isPressed = (code: KeyCode | KeyCode[]) => {
+    const keys = Array.isArray(code) ? code : [code]
+    return keys.some((c) => this.keyState[c]) ? 1 : 0
+  }
 
   handleKeyDown = (event: KeyboardEvent) => {
     this.keyState[event.code] = true
