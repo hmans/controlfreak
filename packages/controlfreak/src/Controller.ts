@@ -1,5 +1,5 @@
 import { Control } from "."
-import { Device, GamepadDevice, KeyboardDevice } from "./devices"
+import { Device } from "./devices"
 
 export class Controller {
   /** A list of devices driving this controller. */
