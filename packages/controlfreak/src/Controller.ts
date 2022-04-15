@@ -1,18 +1,18 @@
 import { Control } from "."
-import { BaseDevice } from "./devices"
+import { Device } from "./devices"
 import { Signal } from "./lib/signal"
 
 export class Controller {
   /** A list of devices driving this controller. */
-  devices = new Array<BaseDevice>()
+  devices = new Array<Device>()
 
   /** The currently active device. */
-  activeDevice: BaseDevice = null!
+  activeDevice: Device = null!
 
   /** The controls defined by this controller.  */
   controls: Record<string, Control> = {}
 
-  onDeviceChange = new Signal<BaseDevice>()
+  onDeviceChange = new Signal<Device>()
 
   start() {
     for (const device of this.devices) {
@@ -47,11 +47,11 @@ export class Controller {
     delete this.controls[name]
   }
 
-  addDevice(device: BaseDevice) {
+  addDevice(device: Device) {
     this.devices.push(device)
   }
 
-  removeDevice(device: BaseDevice) {
+  removeDevice(device: Device) {
     const pos = this.devices.indexOf(device, 0)
     if (pos >= 0) this.devices.splice(pos, 1)
   }

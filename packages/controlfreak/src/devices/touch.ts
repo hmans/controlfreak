@@ -1,4 +1,4 @@
-import { BaseDevice } from "./BaseDevice"
+import { Device as BaseDevice } from "./Device"
 
 export class Device extends BaseDevice {
   start() {

@@ -1,5 +1,5 @@
 import { BooleanControl, VectorControl } from "../Control"
-import { BaseDevice } from "./BaseDevice"
+import { Device as BaseDevice } from "./Device"
 
 export class Device extends BaseDevice {
   deviceIndex?: number

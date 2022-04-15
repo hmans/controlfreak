@@ -1,5 +1,5 @@
 export class Signal<
-  Payload extends any,
+  Payload extends any = void,
   Callback extends Function = (payload: Payload) => void
 > {
   private subscribers = new Set<Callback>()
