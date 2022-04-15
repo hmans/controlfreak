@@ -1,5 +1,5 @@
 import { BooleanControl, VectorControl } from "."
-import { KeyboardDevice, GamepadDevice } from "./devices"
+import { KeyboardDevice, GamepadDevice, KeyCode } from "./devices"
 import * as vector from "./lib/vectorish"
 
 export const normalizeVector = ({ value }: VectorControl) =>
@@ -14,8 +14,6 @@ export const clampVector = (maxLength = 1) => ({ value }: VectorControl) => {
     value.y *= factor
   }
 }
-
-type KeyCode = string
 
 export const compositeKeyboardVector = (
   up: KeyCode | KeyCode[],
@@ -45,7 +43,9 @@ export const gamepadAxisVector = (horizontalAxis = 0, verticalAxis = 1) => ({
   }
 }
 
-export const whenKeyPressed = (key: string) => (control: BooleanControl) => {
+export const whenKeyPressed = (key: KeyCode | KeyCode[]) => (
+  control: BooleanControl
+) => {
   if (control.controller.activeDevice instanceof KeyboardDevice) {
     control.value = !!control.controller.activeDevice.isPressed(key)
   }
