@@ -33,4 +33,4 @@ jobs:
         run: yarn test
 
       - name: Test project integrity
-        run: yarn preconstruct validate
+        run: yarn preconstruct validate && yarn manypkg check
