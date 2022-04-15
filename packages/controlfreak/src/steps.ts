@@ -1,16 +1,12 @@
 import { BooleanControl, VectorControl } from "."
 import { KeyboardDevice, GamepadDevice } from "./devices"
-import { magnitude } from "./lib/vectorish"
+import * as vector from "./lib/vectorish"
 
-export const normalizeVector = ({ value }: VectorControl) => {
-  const length = magnitude(value) || 1
-
-  value.x /= length
-  value.y /= length
-}
+export const normalizeVector = ({ value }: VectorControl) =>
+  vector.normalize(value)
 
 export const clampVector = (maxLength = 1) => ({ value }: VectorControl) => {
-  const length = magnitude(value) || 1
+  const length = vector.magnitude(value) || 1
 
   if (length > maxLength) {
     const factor = maxLength / length
