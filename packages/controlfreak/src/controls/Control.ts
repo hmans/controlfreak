@@ -1,6 +1,7 @@
 import { Controller } from "../Controller"
+import { Step } from "../steps"
 
-export type ControlStep<T = any> = (control: Control<T>) => void
+export type ControlStep<T = any> = Step<T> | { (control: Control<T>): void }
 
 export abstract class Control<T = any> {
   abstract value: T
@@ -24,7 +25,11 @@ export abstract class Control<T = any> {
   update() {
     this.reset()
     for (const step of this.steps) {
-      step(this)
+      if (step instanceof Step) {
+        step.apply(this)
+      } else {
+        step(this)
+      }
     }
   }
 }
