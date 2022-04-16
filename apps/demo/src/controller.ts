@@ -3,7 +3,6 @@ import {
   Controller,
   gamepad,
   keyboard,
-  touch,
   VectorControl,
   processors
 } from "@hmans/controlfreak"
@@ -12,7 +11,6 @@ export const controller = new Controller()
 
 controller.addDevice(new keyboard.Device())
 controller.addDevice(new gamepad.Device())
-controller.addDevice(new touch.Device())
 
 controller
   .addControl("move", VectorControl)
