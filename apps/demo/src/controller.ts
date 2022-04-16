@@ -31,4 +31,4 @@ controller
   .addStep(gamepad.axisVector(2, 3))
   .addStep(processors.normalizeVector)
 
-controller.onDeviceChange.on((d) => console.log("new device:", d))
+controller.onDeviceChange.add((d) => console.log("new device:", d))
