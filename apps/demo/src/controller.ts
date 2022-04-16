@@ -44,37 +44,57 @@ const pressInteraction = (): ControlStep<boolean> => {
   }
 }
 
-const holdInteraction = (
-  duration: number,
-  callbacks: {
-    onPerformed?: Function
-    onCancelled?: Function
-    onStarted?: Function
-  } = {}
-): ControlStep<boolean> => {
+const holdInteraction = (duration: number) => {
   let started: number | null = null
   let completed = false
 
-  return (control) => {
+  const onPerformed = new Signal()
+  const onCancelled = new Signal()
+  const onStarted = new Signal()
+
+  type HoldInteractionStep = ControlStep<boolean> & {
+    onStarted: (fn: () => void) => HoldInteractionStep
+    onCancelled: (fn: () => void) => HoldInteractionStep
+    onPerformed: (fn: () => void) => HoldInteractionStep
+  }
+
+  const step: HoldInteractionStep = (control) => {
     if (control.value) {
       if (!started) {
         started = performance.now()
-        callbacks.onStarted?.()
+        onStarted.emit()
       }
 
       if (!completed && performance.now() > started + duration) {
-        callbacks.onPerformed?.()
+        onPerformed.emit()
         completed = true
       }
     } else {
       if (started && !completed) {
-        callbacks.onCancelled?.()
+        onCancelled.emit()
       }
 
       started = null
       completed = false
     }
   }
+
+  step.onStarted = (fn: () => void) => {
+    onStarted.add(fn)
+    return step
+  }
+
+  step.onCancelled = (fn: () => void) => {
+    onCancelled.add(fn)
+    return step
+  }
+
+  step.onPerformed = (fn: () => void) => {
+    onPerformed.add(fn)
+    return step
+  }
+
+  return step
 }
 
 controller
@@ -82,10 +102,9 @@ controller
   .addStep(keyboard.whenKeyPressed(["Space", "Enter"]))
   .addStep(gamepad.whenButtonPressed(0))
   .addStep(
-    holdInteraction(500, {
-      onPerformed: () => console.log("The button was held!"),
-      onCancelled: () => console.log("The button wasn't held long enough :(")
-    })
+    holdInteraction(500)
+      .onPerformed(() => console.log("YES! The button was held long enough!"))
+      .onCancelled(() => console.log("The button wasn't held long enough :("))
   )
 
 controller
