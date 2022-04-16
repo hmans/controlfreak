@@ -8,7 +8,7 @@ The Keyboard device's `isPressed` function now optionally accepts an array of ke
 controller
   .addControl("move", VectorControl)
   .addStep(
-    compositeKeyboardVector(
+    keyboard.compositeVector(
       ["KeyW", "ArrowUp"],
       ["KeyS", "ArrowDown"],
       ["KeyA", "ArrowLeft"],
@@ -18,5 +18,5 @@ controller
 
 controller
   .addControl("fire", BooleanControl)
-  .addStep(whenKeyPressed(["Space", "Enter"]))
+  .addStep(keyboard.whenKeyPressed(["Space", "Enter"]))
 ```
