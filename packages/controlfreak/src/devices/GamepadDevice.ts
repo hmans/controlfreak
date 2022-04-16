@@ -46,27 +46,24 @@ export class GamepadDevice extends Device {
       this.onActivity.emit()
     }
   }
-}
 
-export const whenButtonPressed = (button: number) => (
-  control: BooleanControl
-) => {
-  if (control.controller.activeDevice instanceof GamepadDevice) {
-    const gamepad = control.controller.activeDevice
-    control.value = gamepad.device!.buttons[button].pressed
+  whenButtonPressed = (button: number) => (control: BooleanControl) => {
+    if (control.controller.activeDevice === this) {
+      control.value = this.device!.buttons[button].pressed
+    }
   }
-}
 
-export const axisVector = (horizontalAxis = 0, verticalAxis = 1) => ({
-  value,
-  controller
-}: VectorControl) => {
-  if (controller.activeDevice instanceof GamepadDevice) {
-    const { device } = controller.activeDevice
+  axisVector = (horizontalAxis = 0, verticalAxis = 1) => ({
+    value,
+    controller
+  }: VectorControl) => {
+    if (controller.activeDevice === this) {
+      const { device } = this
 
-    if (device) {
-      value.x = device.axes[horizontalAxis]
-      value.y = -device.axes[verticalAxis]
+      if (device) {
+        value.x = device.axes[horizontalAxis]
+        value.y = -device.axes[verticalAxis]
+      }
     }
   }
 }

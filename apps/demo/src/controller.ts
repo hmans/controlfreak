@@ -1,16 +1,22 @@
 import {
   BooleanControl,
   Controller,
-  gamepad,
-  keyboard,
-  VectorControl,
-  processors
+  GamepadDevice,
+  KeyboardDevice,
+  processors,
+  TouchDevice,
+  VectorControl
 } from "@hmans/controlfreak"
 
 export const controller = new Controller()
 
-controller.addDevice(new keyboard.KeyboardDevice())
-controller.addDevice(new gamepad.GamepadDevice())
+const keyboard = new KeyboardDevice()
+const gamepad = new GamepadDevice()
+const touch = new TouchDevice()
+
+controller.addDevice(keyboard)
+controller.addDevice(gamepad)
+controller.addDevice(touch)
 
 controller
   .addControl("move", VectorControl)
