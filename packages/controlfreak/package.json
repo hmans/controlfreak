@@ -15,7 +15,7 @@
     "input"
   ],
   "sideEffects": false,
-  "version": "0.1.8",
+  "version": "0.2.0",
   "main": "dist/hmans-controlfreak.cjs.js",
   "module": "dist/hmans-controlfreak.esm.js",
   "types": "dist/hmans-controlfreak.cjs.d.ts",
