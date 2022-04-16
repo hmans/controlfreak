@@ -1,9 +1,9 @@
 import { BooleanControl, VectorControl } from "../Control"
-import { Device as BaseDevice } from "./Device"
+import { Device } from "./Device"
 
 export type KeyCode = string
 
-export class Device extends BaseDevice {
+export class KeyboardDevice extends Device {
   private keyState: Record<KeyCode, boolean> = {}
 
   start = () => {
@@ -38,7 +38,7 @@ export class Device extends BaseDevice {
 export const whenKeyPressed = (key: KeyCode | KeyCode[]) => (
   control: BooleanControl
 ) => {
-  if (control.controller.activeDevice instanceof Device) {
+  if (control.controller.activeDevice instanceof KeyboardDevice) {
     control.value = !!control.controller.activeDevice.isPressed(key)
   }
 }
@@ -49,7 +49,7 @@ export const compositeVector = (
   left: KeyCode | KeyCode[],
   right: KeyCode | KeyCode[]
 ) => ({ value, controller }: VectorControl) => {
-  if (controller.activeDevice instanceof Device) {
+  if (controller.activeDevice instanceof KeyboardDevice) {
     const { isPressed } = controller.activeDevice
 
     value.x = isPressed(right) - isPressed(left)

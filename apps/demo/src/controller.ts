@@ -9,8 +9,8 @@ import {
 
 export const controller = new Controller()
 
-controller.addDevice(new keyboard.Device())
-controller.addDevice(new gamepad.Device())
+controller.addDevice(new keyboard.KeyboardDevice())
+controller.addDevice(new gamepad.GamepadDevice())
 
 controller
   .addControl("move", VectorControl)
