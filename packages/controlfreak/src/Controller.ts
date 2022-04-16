@@ -12,7 +12,7 @@ export class Controller {
   /** The controls defined by this controller.  */
   controls: Record<string, Control> = {}
 
-  onDeviceChange = Signal<Device>()
+  onDeviceChange = new Signal<Device>()
 
   start() {
     for (const device of this.devices) {

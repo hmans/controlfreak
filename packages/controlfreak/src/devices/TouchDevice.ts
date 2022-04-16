@@ -2,9 +2,9 @@ import { Signal } from "@hmans/signal"
 import { Device } from "./Device"
 
 export class TouchDevice extends Device {
-  onTouchStart = Signal<TouchEvent>()
-  onTouchEnd = Signal<TouchEvent>()
-  onTouchMove = Signal<TouchEvent>()
+  onTouchStart = new Signal<TouchEvent>()
+  onTouchEnd = new Signal<TouchEvent>()
+  onTouchMove = new Signal<TouchEvent>()
 
   start() {
     document.addEventListener("touchstart", this.handleTouchStart)
