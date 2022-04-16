@@ -80,6 +80,14 @@ class ClassyHoldInteraction extends Step<boolean> {
   }
 }
 
+const exposeSignal = <TStep extends ControlStep>(
+  step: TStep,
+  signal: Signal
+) => (fn: () => void) => {
+  signal.add(fn)
+  return step
+}
+
 const holdInteraction = (duration: number) => {
   let started: number | null = null
   let completed = false
@@ -115,20 +123,9 @@ const holdInteraction = (duration: number) => {
     }
   }
 
-  step.onStarted = (fn: () => void) => {
-    onStarted.add(fn)
-    return step
-  }
-
-  step.onCancelled = (fn: () => void) => {
-    onCancelled.add(fn)
-    return step
-  }
-
-  step.onPerformed = (fn: () => void) => {
-    onPerformed.add(fn)
-    return step
-  }
+  step.onStarted = exposeSignal(step, onStarted)
+  step.onCancelled = exposeSignal(step, onCancelled)
+  step.onPerformed = exposeSignal(step, onPerformed)
 
   return step
 }
