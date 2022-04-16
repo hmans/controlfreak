@@ -1,5 +1,5 @@
 export * from "./Controller"
-export * from "./Control"
+export * from "./controls"
 export * from "./devices"
 export * as processors from "./processors"
 
