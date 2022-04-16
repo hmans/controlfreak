@@ -46,6 +46,40 @@ const pressInteraction = (): ControlStep<boolean> => {
   }
 }
 
+class ClassyHoldInteraction extends Step<boolean> {
+  private started: number | null = null
+  private completed = false
+
+  onStarted = new Signal()
+  onPerformed = new Signal()
+  onCancelled = new Signal()
+
+  constructor(public duration: number) {
+    super()
+  }
+
+  apply(control: Control<boolean>): void {
+    if (control.value) {
+      if (!this.started) {
+        this.started = performance.now()
+        this.onStarted.emit()
+      }
+
+      if (!this.completed && performance.now() > this.started + this.duration) {
+        this.onPerformed.emit()
+        this.completed = true
+      }
+    } else {
+      if (this.started && !this.completed) {
+        this.onCancelled.emit()
+      }
+
+      this.started = null
+      this.completed = false
+    }
+  }
+}
+
 const holdInteraction = (duration: number) => {
   let started: number | null = null
   let completed = false
@@ -97,40 +131,6 @@ const holdInteraction = (duration: number) => {
   }
 
   return step
-}
-
-class ClassyHoldInteraction extends Step<boolean> {
-  private started: number | null = null
-  private completed = false
-
-  onStarted = new Signal()
-  onPerformed = new Signal()
-  onCancelled = new Signal()
-
-  constructor(public duration: number) {
-    super()
-  }
-
-  apply(control: Control<boolean>): void {
-    if (control.value) {
-      if (!this.started) {
-        this.started = performance.now()
-        this.onStarted.emit()
-      }
-
-      if (!this.completed && performance.now() > this.started + this.duration) {
-        this.onPerformed.emit()
-        this.completed = true
-      }
-    } else {
-      if (this.started && !this.completed) {
-        this.onCancelled.emit()
-      }
-
-      this.started = null
-      this.completed = false
-    }
-  }
 }
 
 controller
