@@ -1,21 +1,8 @@
-interface IVector {
-  x: number
-  y: number
-}
+export * from "./Controller"
+export * from "./controls"
+export * from "./devices"
+export * from "./steps"
+export * as processors from "./processors"
 
-type Vector = IVector
-
-const initializeBoolean = (): boolean => false
-
-const initializeVector = (): Vector => ({ x: 0, y: 0 })
-
-/* Define a controller */
-const makeController = () => ({
-  move: () => initializeVector(),
-  aim: () => initializeVector(),
-  fire: () => initializeBoolean()
-})
-
-const controller = makeController()
-
-export const foo = "bar"
+export type { IVector2 } from "./lib/vectorish"
+export { Signal } from "@hmans/signal"
