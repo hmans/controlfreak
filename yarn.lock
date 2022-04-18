@@ -1425,10 +1425,10 @@
   resolved "https://registry.yarnpkg.com/@hmans/react-toolbox/-/react-toolbox-0.1.4.tgz#295f47976565fcd043ed0bc4078c382e411dc082"
   integrity sha512-PmhaalZ70hSfIX7AUgWO9gVhKkWH8cbZXxGzmjgJ+46sw6cJUlnawkc/WlIxtUro+TTW61YG1i+18QD0zsvF+Q==
 
-"@hmans/signal@^0.1.8":
-  version "0.1.8"
-  resolved "https://registry.yarnpkg.com/@hmans/signal/-/signal-0.1.8.tgz#46788033db3a24206ff91962aa44097dd274390b"
-  integrity sha512-jhTe89A0Fzp0aRcQdB1F9Z1gDqFNFS5kZohbk/EiQqvcVJqfJ5XG0IsSEZiyAT7RuiLXupwbAn7MxXVL+iZZIA==
+"@hmans/signal@^0.2.2":
+  version "0.2.2"
+  resolved "https://registry.yarnpkg.com/@hmans/signal/-/signal-0.2.2.tgz#0b952d2ccd8f873a096dc806468b636c5ca82b95"
+  integrity sha512-4KlR6FiqICOY9J8V483Atk7bfMqoGM/hdYd/6ab+HB+CJfiOBPzY6PtYz3O6bBsNkIZpimnTMSw2AqOz1WDlrA==
 
 "@istanbuljs/load-nyc-config@^1.0.0":
   version "1.1.0"
