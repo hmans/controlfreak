@@ -65,6 +65,8 @@ Then use it in your game loop:
 ```ts
 import { controller } from "./controller"
 
+controller.start()
+
 /* Very likely within some sort of loop...: */
 controller.update()
 console.log(controller.controls.move.value)
