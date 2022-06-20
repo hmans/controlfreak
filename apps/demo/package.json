@@ -11,7 +11,7 @@
     "@emotion/react": "^11.9.0",
     "@emotion/styled": "^11.8.1",
     "@hmans/react-toolbox": "^0.1.4",
-    "@react-three/drei": "^9.4.2",
+    "@react-three/drei": "^9.13.2",
     "@react-three/fiber": "^8.0.11",
     "@types/three": "^0.139.0",
     "react": "^18.0.0",
